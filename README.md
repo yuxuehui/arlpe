@@ -2,6 +2,7 @@
 
 #### Algorithm 1: Meta-training 
 ![avatar][base64metatraining]
+![image][base64metatraining]
 
 #### Algorithm 2: Meta-testing
 ![avatar][base64metatesting]
