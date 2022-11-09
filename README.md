@@ -1,4 +1,4 @@
-### Basal Glucose Control in Type 1 Diabetes Using An Off-policy Meta Reinforcement Learning Framework with Active Learning
+# ARLPE: A Meta Reinforcement Learning Framework for Glucose Regulation in Type 1 Diabetics
 
 #### Algorithm 1: Meta-training 
 ![Aaron Swartz](https://raw.githubusercontent.com/yuxuehui/arlpe/main/meta_learning.png)
