@@ -1,3 +1,6 @@
+import os, sys
+lib_path = os.path.abspath(os.path.join('../../..'))
+result_path =  os.path.join(lib_path, 'results')
 import abc
 from collections import OrderedDict
 import time
@@ -190,7 +193,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                             idx + 1)  # 存入数据库
                     cursor.execute(sql)  # 执行数据库语句
                     db.commit()  # 提交
-                    with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/dataDeal2.txt', 'a+') as dfile:
+                    with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                         dfile.write('\npatient:' + str(idx + 1) + '\n')
                     self.task_idx = idx
                     self.env.reset_task(idx)
@@ -214,7 +217,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                         self.task_idx + 1)  # 存入数据库
                 cursor.execute(sql)  # 执行数据库语句
                 db.commit()  # 提交
-                with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/dataDeal2.txt', 'a+') as dfile:
+                with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                     dfile.write('\npatient:' + str(self.task_idx + 1) + '\n')
 
                 # collect some trajectories with z ~ prior
@@ -327,7 +330,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
             logger.record_tabular('Total Train Time (s)', total_time)
 
             logger.record_tabular("Epoch", epoch)
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
                 dfile.write(
                     'Number of train steps total:\t' + str(self._n_train_steps_total) + '\n'
                     + 'Number of env steps total:\t' + str(self._n_env_steps_total) + '\n'
@@ -342,7 +345,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
             logger.dump_tabular(with_prefix=False, with_timestamp=False)
         else:
             logger.log("Skipping eval for now.")
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
                 dfile.write('Skipping eval for now.\n')
 
     def _can_evaluate(self):
@@ -383,7 +386,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
             time.time() - self._epoch_start_time
         ))
         logger.log("Started Training: {0}".format(self._can_train()))
-        with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+        with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
             dfile.write(
                 'Epoch Duration:\t' + str(time.time() - self._epoch_start_time) + '\n'
                 + 'Started Training:\t' + str(self._can_train()) + '\n'
@@ -540,7 +543,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                     idx + 1)  # 存入数据库
             cursor.execute(sql)  # 执行数据库语句
             db.commit()  # 提交
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/dataDeal2.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                 dfile.write('\npatient:' + str(idx + 1) + '\n')
             all_rets = []
             for r in range(self.num_evals):
@@ -568,7 +571,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                     idx + 1)  # 存入数据库
             cursor.execute(sql)  # 执行数据库语句
             db.commit()  # 提交
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/dataDeal2.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                 dfile.write('\npatient:' + str(idx + 1) + '\n')
             all_rets = []
             for r in range(self.num_evals):
@@ -618,7 +621,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                     idx + 1)  # 存入数据库
             cursor.execute(sql)  # 执行数据库语句
             db.commit()  # 提交
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/dataDeal2.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                 dfile.write('\n**************测试***************' + '\n' + 'patient:' + str(idx + 1) + '\n')
             paths = []
             for _ in range(self.num_steps_per_eval // self.max_path_length):
@@ -666,10 +669,10 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
         self.eval_statistics['AverageReturn_all_test_tasks'] = avg_test_return
         logger.save_extra_data(avg_train_online_return, path='online-train-epoch{}'.format(epoch))
         logger.save_extra_data(avg_test_online_return, path='online-test-epoch{}'.format(epoch))
-        with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+        with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
             dfile.write('------------------------------------------------------------------\n')
         for key, value in self.eval_statistics.items():
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
                 dfile.write(key + ':\t' + str(value) + '\n')
             logger.record_tabular(key, value)
         self.eval_statistics = None
@@ -705,10 +708,10 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
             self.eval_statistics['AverageReturn_all_test_tasks'] = avg_test_return
             logger.save_extra_data(avg_test_online_return, path='online-test-epoch{}'.format(epoch))
 
-            with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+            with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
                 dfile.write('------------------------------------------------------------------\n')
             for key, value in self.eval_statistics.items():
-                with open('/home/Data/yanlian/yxhfile/dmmsDjSA_end/dmmsDjango/results/Epochrecord.txt', 'a+') as dfile:
+                with open(os.path.join(result_path, 'Epochrecord.txt'), 'a+') as dfile:
                     dfile.write(key + ':\t' + str(value) + '\n')
                 logger.record_tabular(key, value)
         self.eval_statistics = None
