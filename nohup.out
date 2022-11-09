@@ -1,0 +1,36 @@
+[17/Mar/2021 14:51:06] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:09] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:12] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:12] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:13] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:13] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:13] "GET /index/ HTTP/1.1" 200 11
+[17/Mar/2021 14:51:13] "GET /index/ HTTP/1.1" 200 11
+Performing system checks...
+
+System check identified no issues (0 silenced).
+March 17, 2021 - 14:50:33
+Django version 2.0, using settings 'dmmsDjango.settings'
+Starting development server at http://0.0.0.0:8888/
+Quit the server with CONTROL-C.
+[02/Nov/2022 22:27:33] "GET /test/ HTTP/1.1" 200 4
+Not Found: /favicon.ico
+[02/Nov/2022 22:27:33] "GET /favicon.ico HTTP/1.1" 404 2306
+[02/Nov/2022 22:27:35] "GET /test/ HTTP/1.1" 200 4
+[02/Nov/2022 22:36:50] "GET /test/ HTTP/1.1" 200 4
+Not Found: /favicon.ico
+[02/Nov/2022 22:36:50] "GET /favicon.ico HTTP/1.1" 404 2306
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 02, 2022 - 21:40:32
+Django version 2.0, using settings 'dmmsDjango.settings'
+Starting development server at http://0.0.0.0:8888/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+November 03, 2022 - 10:56:24
+Django version 2.0, using settings 'dmmsDjango.settings'
+Starting development server at http://0.0.0.0:8888/
+Quit the server with CONTROL-C.
