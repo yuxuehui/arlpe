@@ -1,6 +1,10 @@
 import os, sys
 lib_path = os.path.abspath(os.path.join('../../..'))
 result_path =  os.path.join(lib_path, 'results')
+mysql_path = os.path.abspath(os.path.join('../..'))
+sys.path.append(mysql_path)
+from configs.mysql_config import mysql_config
+
 import abc
 from collections import OrderedDict
 import time
@@ -184,10 +188,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                 print('collecting initial pool of data for train and eval')
                 # temp for evaluating
                 for idx in self.train_tasks:  # 依次收集每个任务的 initial pool
-                    print('使用病人：', idx + 1)
-                    # 通过数据库告知cmdcontrol哪个病人
-                    db = pymysql.connect(host="localhost", user="root", password="123456",
-                                         database="dmms")  # 打开数据库，配置数据库
+                    db = pymysql.connect(host=mysql_config.mysql_host, user=mysql_config.mysql_user,password=mysql_config.mysql_password, database=mysql_config.mysql_database)
                     cursor = db.cursor()  # 数据库操作
                     sql = "insert into patient(id)values('%d')" % (
                             idx + 1)  # 存入数据库
@@ -203,16 +204,11 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                 idx = np.random.randint(len(self.train_tasks))  # 随机采样一个 task 的 idx
                 self.task_idx = self.train_tasks[idx]
                 self.env.reset_task(self.task_idx)
-                # 告知cmdcontrol
-                # patient.person = idx  # 无用
-                # print("idx:", idx, "\nenc_replay_buffer:",self.enc_replay_buffer,"\nself.enc_replay_buffer.task_buffers:",self.enc_replay_buffer.task_buffers)
 
                 self.enc_replay_buffer.task_buffers[self.task_idx].clear()
 
-                print('使用病人：', self.task_idx + 1)
-                # 通过数据库告知cmdcontrol哪个病人
-                db = pymysql.connect(host="localhost", user="root", password="123456", database="dmms")  # 打开数据库，配置数据库
-                cursor = db.cursor()  # 数据库操作
+                db = pymysql.connect(host=mysql_config.mysql_host, user=mysql_config.mysql_user,password=mysql_config.mysql_password, database=mysql_config.mysql_database)
+                cursor = db.cursor()
                 sql = "insert into patient(id)values('%d')" % (
                         self.task_idx + 1)  # 存入数据库
                 cursor.execute(sql)  # 执行数据库语句
@@ -535,9 +531,7 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
         final_returns = []
         online_returns = []
         for idx in indices:
-            print('使用病人：', idx + 1)
-            # 通过数据库告知cmdcontrol哪个病人
-            db = pymysql.connect(host="localhost", user="root", password="123456", database="dmms")  # 打开数据库，配置数据库
+            db = pymysql.connect(host=mysql_config.mysql_host, user=mysql_config.mysql_user,password=mysql_config.mysql_password, database=mysql_config.mysql_database)
             cursor = db.cursor()  # 数据库操作
             sql = "insert into patient(id)values('%d')" % (
                     idx + 1)  # 存入数据库
@@ -563,25 +557,23 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
         final_returns = []
         online_returns = []
         for idx in indices:
-            print('使用病人：', idx + 1)
-            # 通过数据库告知cmdcontrol哪个病人
-            db = pymysql.connect(host="localhost", user="root", password="123456", database="dmms")  # 打开数据库，配置数据库
-            cursor = db.cursor()  # 数据库操作
+            db = pymysql.connect(host=mysql_config.mysql_host, user=mysql_config.mysql_user,password=mysql_config.mysql_password, database=mysql_config.mysql_database)
+            cursor = db.cursor()
             sql = "insert into patient(id)values('%d')" % (
-                    idx + 1)  # 存入数据库
-            cursor.execute(sql)  # 执行数据库语句
-            db.commit()  # 提交
+                    idx + 1)
+            cursor.execute(sql)
+            db.commit()
             with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
                 dfile.write('\npatient:' + str(idx + 1) + '\n')
             all_rets = []
             for r in range(self.num_evals):
                 paths = self.collect_paths(idx, epoch, r)
-                all_rets.append([eval_util.get_average_returns([p]) for p in paths])  # 存放所有path的 sum reward
+                all_rets.append([eval_util.get_average_returns([p]) for p in paths])
             final_returns.append(np.mean([a[-1] for a in all_rets]))
             # record online returns for the first n trajectories
             n = min([len(a) for a in all_rets])  # 4
-            all_rets = [a[:n] for a in all_rets]    # 裁剪一下，防止每个a的维度不同。有的任务有done，所以可能提前终止
-            all_rets = np.mean(np.stack(all_rets), axis=0)  # avg return per nth rollout    计算每一列的均值
+            all_rets = [a[:n] for a in all_rets]
+            all_rets = np.mean(np.stack(all_rets), axis=0)  # avg return per nth rollout
             online_returns.append(all_rets)
         n = min([len(t) for t in online_returns])
         online_returns = [t[:n] for t in online_returns]
@@ -613,16 +605,13 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
         for idx in indices:
             self.task_idx = idx
             self.env.reset_task(idx)
-            print('使用病人：', idx + 1)
-            # 通过数据库告知cmdcontrol哪个病人
-            db = pymysql.connect(host="localhost", user="root", password="123456", database="dmms")  # 打开数据库，配置数据库
-            cursor = db.cursor()  # 数据库操作
-            sql = "insert into patient(id)values('%d')" % (
-                    idx + 1)  # 存入数据库
-            cursor.execute(sql)  # 执行数据库语句
-            db.commit()  # 提交
+            db = pymysql.connect(host=mysql_config.mysql_host, user=mysql_config.mysql_user,password=mysql_config.mysql_password, database=mysql_config.mysql_database)
+            cursor = db.cursor()
+            sql = "insert into patient(id)values('%d')" % (idx + 1)
+            cursor.execute(sql)
+            db.commit()
             with open(os.path.join(result_path, 'dataDeal2.txt'), 'a+') as dfile:
-                dfile.write('\n**************测试***************' + '\n' + 'patient:' + str(idx + 1) + '\n')
+                dfile.write('\n**************test***************' + '\n' + 'patient:' + str(idx + 1) + '\n')
             paths = []
             for _ in range(self.num_steps_per_eval // self.max_path_length):
                 context = self.sample_context(idx)
@@ -639,10 +628,8 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
                     sparse_rewards = np.stack(e['sparse_reward'] for e in p['env_infos']).reshape(-1, 1)
                     p['rewards'] = sparse_rewards
 
-            # eval_util.get_average_returns(paths) 1、计算每个path的sum reward；2、将多个path的sum reward求平均
-            # train_returns 中记录的是 indices 中 各个任务的sum reward 的平均值。
             train_returns.append(eval_util.get_average_returns(paths))
-        train_returns = np.mean(train_returns)  # 各个任务的 sum reward 求均值，train_returns为一个实数
+        train_returns = np.mean(train_returns)
         ### eval train tasks with on-policy data to match eval of test tasks
         train_final_returns, train_online_returns = self._do_eval(indices, epoch)
         eval_util.dprint('train online returns')
@@ -685,7 +672,6 @@ class MetaRLAlgorithm(metaclass=abc.ABCMeta):
 
     def evaluate_meta_test(self, indices, num_epoch):
         """
-        meta test 阶段的测试。与indices中的患者分别交互 iter 次，每次60step，生成患者的血糖曲线
         :param indices:
         :return:
         """
