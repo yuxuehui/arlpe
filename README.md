@@ -106,7 +106,7 @@ Hyperparameter $\alpha$ is a discount factor that adjusts the attention of $dist
 
 <img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_alpha.png" width="100%" style="display:block; margin:0 auto;">
 
-Hyperparameter $\beta$ can adjust the value of the highest reward. Figure \ref{reward_function_beta} shows the comparative analysis of different $\beta$. With the $\beta$ increasing, the highest reward value would increase. Similarly, the increase of $\beta$ will also increase the difficulty of agent learning.
+Hyperparameter $\beta$ can adjust the value of the highest reward. The following figure shows the comparative analysis of different $\beta$. With the $\beta$ increasing, the highest reward value would increase. Similarly, the increase of $\beta$ will also increase the difficulty of agent learning.
 
 <img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_beta.png" width="100%" style="display:block; margin:0 auto;">
 
