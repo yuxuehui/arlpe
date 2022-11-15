@@ -103,11 +103,11 @@ Moreover, other parameter selection suggestions are shown in the following.
 Hyperparameter $\alpha$ is a discount factor that adjusts the attention of $dist_{outside}$ and $dist_{inside}$ in equation (7). $dist_{outside}$ penalizes agents with negative value while blood glucose levels fall outside the target range; $dist_{inside}$ awards agents while blood glucose levels fluctuate around $Cen(\textbf{q})$ and keep away from the boundary. The following figure shows the comparative analysis of different $\alpha$. As the value of $\alpha$ becomes larger, the range of the highest reward (the red area) gradually shrinks, and the blood glucose value approaches the median $Cen(\textbf{q})$ of the normal range $\textbf{q}$. It should be noted that the increase of $\alpha$ will also cause difficulty for agents exploring the highest reward area.
 
 
-<img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_alpha.png" width="50%" style="display:block; margin:0 auto;">
+<img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_alpha.png" width="100%" style="display:block; margin:0 auto;">
 
 Hyperparameter $\beta$ can adjust the value of the highest reward. Figure \ref{reward_function_beta} shows the comparative analysis of different $\beta$. With the $\beta$ increasing, the highest reward value would increase. Similarly, the increase of $\beta$ will also increase the difficulty of agent learning.
 
-<img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_beta.png" width="50%" style="display:block; margin:0 auto;">
+<img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_beta.png" width="100%" style="display:block; margin:0 auto;">
 
 ## 参考
 <div id="refer-anchor-1"></div>
