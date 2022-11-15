@@ -89,9 +89,11 @@ python 0_active_learning.py
 
 ## Parameter Selection Suggestions
 We provide several parameter selection suggestions for the following reward function and corresponding analyses.
+
 $$
 r(G) = \beta - dist_{outside}(G;\textbf{q}) - \alpha \cdot dist_{inside}(G;\textbf{q})
 $$
+
 where $G$ is the query, $\alpha=0.2$, $\beta=24$, and $\textbf{q}=\left[ q_{min}, q_{max} \right] \in \mathbb{R}^{2d}$ is a query box that is $\left[ 70,180 \right]$ in the problem of glucose regulation. In this project, both $\alpha$ and $\beta$ use the optimal values provided by Ren [<sup>1</sup>](#refer-anchor-2) and can be adjusted according to different task demands. The visualization of above function is shown as follows:
 
 <img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/reward_va.png" width="50%" style="display:block; margin:0 auto;">
