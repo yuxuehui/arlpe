@@ -110,7 +110,34 @@ Hyperparameter $\beta$ can adjust the value of the highest reward. The following
 
 <img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/test_beta.png" width="100%" style="display:block; margin:0 auto;">
 
-## 参考
+## Personalized Information $\mathcal{I}$
+The personalized information $\mathcal{I}$ contains initial blood glucose (mg/dL), body weight (Kg), and age (years) provided by DMMS.R, which are shown as following:
+
+| Name           | Gb (mg/dL)  | BW (Kg)     | Age (years) |
+| -------------- | ----------- | ----------- | ----------- |
+| adult#001      | 112.021066  | 79.7963352  | 32          |
+| adult#002      | 123.4421331 | 80.3439477  | 22          |
+| adult#003      | 119.4082562 | 70.86703897 | 42          |
+| adult#004      | 119.38806   | 67.48489099 | 24          |
+| adult#005      | 119.6544626 | 67.10597551 | 47          |
+| adult#006      | 115.5722936 | 73.00722156 | 23          |
+| adult#007      | 115.057309  | 46.06366847 | 47          |
+| adult#008      | 130.0153165 | 98.65616259 | 56          |
+| adult#009      | 113.5675799 | 67.78366743 | 24          |
+| adult#010      | 113.314851  | 80.79056385 | 31          |
+| adolescent#001 | 112.8248633 | 36.16436865 | 16          |
+| adolescent#002 | 122.801136  | 50.88231078 | 18          |
+| adolescent#003 | 127.0517476 | 54.49295247 | 19          |
+| adolescent#004 | 122.5097697 | 41.47588397 | 17          |
+| adolescent#005 | 117.7106401 | 59.3406062  | 19          |
+| adolescent#006 | 119.4453031 | 52.57731581 | 17          |
+| adolescent#007 | 132.9827889 | 48.5781922  | 19          |
+| adolescent#008 | 112.4325827 | 51.78854929 | 16          |
+| adolescent#009 | 120.0270172 | 67.0120101  | 16          |
+| adolescent#010 | 116.7512737 | 49.35752237 | 19          |
+
+
+## Reference
 <div id="refer-anchor-1"></div>
 [1] [DMMS.R - The Epsilon Group](https://tegvirginia.com/software/dmms-r/)
 
