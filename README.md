@@ -1,6 +1,6 @@
 # ARLPE: A Meta Reinforcement Learning Framework for Glucose Regulation in Type 1 Diabetics
 
-This is the official implementation of ARLPE (accepted to Expert Systems with Applications), which achieves the automatic glucose regulation of unknown patients even with uncertainties and noise. The performance of ARLPE is evaluated in 30 *in silico* patients from the Diabetes Mellitus Metabolic Simulator for Research (DMMS.R) [<sup>1</sup>](#refer-anchor-1), a computer application designed for clinical trials in virtual subjects and certified by the US FDA.
+This is the official implementation of ARLPE (accepted to Expert Systems with Applications, https://doi.org/10.1016/j.eswa.2023.120156), which achieves the automatic glucose regulation of unknown patients even with uncertainties and noise. The performance of ARLPE is evaluated in 30 *in silico* patients from the Diabetes Mellitus Metabolic Simulator for Research (DMMS.R) [<sup>1</sup>](#refer-anchor-1), a computer application designed for clinical trials in virtual subjects and certified by the US FDA.
 
 <img src="https://raw.githubusercontent.com/yuxuehui/arlpe/main/fig/teg-logo.png" width="50%" style="display:block; margin:0 auto;">
 
